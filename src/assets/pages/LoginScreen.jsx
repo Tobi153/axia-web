@@ -1,195 +1,110 @@
-// import { useAuth } from "../hooks/useAuth";
-// import { useLoginForm } from "../hooks/useForm";
-// import { useNavigate } from "react-router-dom";
-// import {
-//   Form,
-//   FormControl,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form";
-// import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-// export function LoginScreen() {
-//   const { formState, control, handleSubmit } = useLoginForm();
-//   const navigate = useNavigate();
-//   const { isAuthenticated } = useAuth();
-
-//   const onSubmit = async () => {
-//     try {
-//       await handleSubmit();
-//       alert("Logged in successfully");
-//       navigate("/dashboard");
-//     } catch (error) {
-//       console.log("Submission failed:", error);
-//     }
-//   };
-
-//   if (isAuthenticated) {
-//     return <div>You are logged in...Redirecting to dashboard</div>;
-//   }
-
-//   return (
-//     <Form control={control}>
-//       <form onSubmit={onSubmit}>
-//         <FormField
-//           control={control}
-//           name="username"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Username</FormLabel>
-//               <FormControl>
-//                 <Input placeholder="Enter your username" {...field} />
-//               </FormControl>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-
-//         <FormField
-//           control={control}
-//           name="email"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Email</FormLabel>
-//               <FormControl>
-//                 <Input placeholder="Enter your email" {...field} />
-//               </FormControl>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-
-//         <FormField
-//           control={control}
-//           name="password"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Password</FormLabel>
-//               <FormControl>
-//                 <Input
-//                   type="password"
-//                   placeholder="Enter your password"
-//                   {...field}
-//                 />
-//               </FormControl>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         {formState.errors.root?.serverError && (
-//           <p className="text-red-500">
-//             {formState.errors.root.serverError.message}
-//           </p>
-//         )}
-//         <Button type="submit">Login</Button>
-//       </form>
-//     </Form>
-//   );
-// }
-
-// export default LoginScreen;
-
-import { useLoginForm } from "../hooks/useForm";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+const loginSchema = z.object({
+  username: z.string().min(8),
+  email: z.string().email(),
+  password: z.string().min(8),
+});
 
 export function LoginScreen() {
-  const { control, handleSubmit, formState } = useLoginForm(); // Destructure correctly
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
-
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      username: "John Doe",
+      email: "test@email.com",
+    },
+    resolver: zodResolver(loginSchema),
+  });
   const onSubmit = async (data) => {
     try {
-      await handleSubmit(data); // This should trigger validation and submission
-      alert("Logged in successfully");
-      navigate("/dashboard");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log(data);
+      throw new Error();
     } catch (error) {
-      console.log("Submission failed:", error);
+      setError("root", { message: "This username is already taken" });
+    } finally {
+      reset();
     }
   };
-
-  if (isAuthenticated) {
-    navigate("/dashboard", { replace: true }); // Redirect if authenticated
-    return null; // Prevent further rendering
-  }
-
   return (
-    <Form {...{ control }}>
-      {" "}
-      {/* Spread control into Form props */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(onSubmit)();
-        }}
-      >
-        <FormField
-          control={control}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className=" w-[500px] flex flex-col gap-y-4"
+    >
+      <div className="username-group flex flex-col gap-2">
+        <label id="username" className="self-start">
+          Username
+        </label>
+        <input
+          {...register("username")}
+          type="text"
           name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your username" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          id="username"
+          className="border-1 border-gray-700 rounded-md px-3 py-1"
+          placeholder="Username"
         />
-
-        <FormField
-          control={control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Enter your password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {formState.errors.root?.serverError && (
-          <p className="text-red-500">
-            {formState.errors.root.serverError.message}
-          </p>
+        {errors.username && (
+          <div className="text-red-700 border-1 border-red-800 bg-red-200 px-3 py-1 text-left">
+            {errors.username.message}
+          </div>
         )}
-        <Button type="submit">Login</Button>
-      </form>
-    </Form>
+      </div>
+      <div className="email-group flex flex-col gap-2">
+        <label id="email" className="self-start">
+          Email
+        </label>
+        <input
+          {...register("email")}
+          type="email"
+          name="email"
+          id="email"
+          className="border-1 border-gray-700 rounded-md px-3 py-1"
+          placeholder="Email"
+        />
+        {errors.email && (
+          <div className="text-red-700 border-1 border-red-800 bg-red-200 px-3 py-1 text-left">
+            {errors.email.message}
+          </div>
+        )}
+      </div>
+      <div className="password-group flex flex-col gap-2">
+        <label id="password" className="self-start">
+          Password
+        </label>
+        <input
+          {...register("password")}
+          type="text"
+          name="password"
+          id="password"
+          className="border-1 border-gray-700 rounded-md px-3 py-1"
+          placeholder="Password"
+        />
+        {errors.password && (
+          <div className="text-red-700 border-1 border-red-800 bg-red-200 px-3 py-1 text-left">
+            {errors.password.message}
+          </div>
+        )}
+      </div>
+      <button
+        className="bg-blue-700 text-white text-center rounded-md px-3 py-2 w-full cursor-pointer hover:bg-blue-800 transition-all duration-300"
+        type="submit"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Loading..." : "Submit"}
+      </button>
+
+      {errors.root && (
+        <div className="text-red-700 border-1 border-red-800 bg-red-200 px-3 py-1 text-left">
+          {errors.root.message}
+        </div>
+      )}
+    </form>
   );
 }
-
-export default LoginScreen;
