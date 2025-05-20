@@ -1,110 +1,52 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider } from "react-hook-form";
+import { loginSchema } from "../schemas/authSchema";
 
-const loginSchema = z.object({
-  username: z.string().min(8),
-  email: z.string().email(),
-  password: z.string().min(8),
-});
+import { FormInput } from "../components/ui/FormInput";
+import { SubmitButton } from "../components/ui/Button";
+import { useAuthForm } from "../hooks/useAuthForm";
+import { FormError } from "../components/ui/FormError";
 
 export function LoginScreen() {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm({
+  const methods = useAuthForm({
+    schema: loginSchema,
     defaultValues: {
-      username: "John Doe",
-      email: "test@email.com",
+      email: "",
+      password: "",
     },
-    resolver: zodResolver(loginSchema),
-  });
-  const onSubmit = async (data) => {
-    try {
+    onSubmitCallback: async (data) => {
+      console.log(loginSchema.safeParse(data));
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log(data);
-      throw new Error();
-    } catch (error) {
-      setError("root", { message: "This username is already taken" });
-    } finally {
-      reset();
-    }
-  };
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className=" w-[500px] flex flex-col gap-y-4"
-    >
-      <div className="username-group flex flex-col gap-2">
-        <label id="username" className="self-start">
-          Username
-        </label>
-        <input
-          {...register("username")}
-          type="text"
-          name="username"
-          id="username"
-          className="border-1 border-gray-700 rounded-md px-3 py-1"
-          placeholder="Username"
-        />
-        {errors.username && (
-          <div className="text-red-700 border-1 border-red-800 bg-red-200 px-3 py-1 text-left">
-            {errors.username.message}
-          </div>
-        )}
-      </div>
-      <div className="email-group flex flex-col gap-2">
-        <label id="email" className="self-start">
-          Email
-        </label>
-        <input
-          {...register("email")}
-          type="email"
-          name="email"
-          id="email"
-          className="border-1 border-gray-700 rounded-md px-3 py-1"
-          placeholder="Email"
-        />
-        {errors.email && (
-          <div className="text-red-700 border-1 border-red-800 bg-red-200 px-3 py-1 text-left">
-            {errors.email.message}
-          </div>
-        )}
-      </div>
-      <div className="password-group flex flex-col gap-2">
-        <label id="password" className="self-start">
-          Password
-        </label>
-        <input
-          {...register("password")}
-          type="text"
-          name="password"
-          id="password"
-          className="border-1 border-gray-700 rounded-md px-3 py-1"
-          placeholder="Password"
-        />
-        {errors.password && (
-          <div className="text-red-700 border-1 border-red-800 bg-red-200 px-3 py-1 text-left">
-            {errors.password.message}
-          </div>
-        )}
-      </div>
-      <button
-        className="bg-blue-700 text-white text-center rounded-md px-3 py-2 w-full cursor-pointer hover:bg-blue-800 transition-all duration-300"
-        type="submit"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Loading..." : "Submit"}
-      </button>
+      throw new Error("Account already exists");
+    },
+  });
+  const { handleSubmit, errors, isSubmitting } = methods;
 
-      {errors.root && (
-        <div className="text-red-700 border-1 border-red-800 bg-red-200 px-3 py-1 text-left">
-          {errors.root.message}
-        </div>
-      )}
-    </form>
+  return (
+    <FormProvider {...methods}>
+      <form
+        onSubmit={handleSubmit}
+        className=" w-[500px] flex flex-col gap-y-4"
+      >
+        <FormInput
+          name="email"
+          type="email"
+          label="Email"
+          placeholder="Enter your email"
+          iconClass1="fa-solid fa-envelope"
+        />
+        <FormInput
+          name="password"
+          type="password"
+          label="Password"
+          placeholder="Enter your password"
+          iconClass1="fa-solid fa-lock"
+          iconClass2="fa-solid fa-eye-slash"
+          iconClass3="fa-solid fa-eye"
+        />
+        <SubmitButton isSubmitting={isSubmitting} label="Sign up" />
+        <FormError error={errors.root} />
+      </form>
+    </FormProvider>
   );
 }

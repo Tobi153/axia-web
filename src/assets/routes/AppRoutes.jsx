@@ -7,6 +7,7 @@ import { AboutScreen } from "../pages/AboutScreen";
 import { MarketPlaceScreen } from "../pages/MarketPlaceScreen";
 import { ServicesScreen } from "../pages/ServicesScreen";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { ForgotPasswordScreen } from "../pages/ForgotPasswordScreen";
 
 // Defining router
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/marketplace",
     element: <MarketPlaceScreen />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordScreen />,
   },
 ]);
 

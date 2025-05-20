@@ -3,14 +3,28 @@
 // import viteLogo from "/vite.svg";
 import "./App.css";
 import AppRoutes from "./assets/routes/AppRoutes";
-import { createBrowserRouter, RouterProvider } from "react-dom";
+// import { RouterProvider } from "react-dom";
+import { ToastContainer, Bounce } from "react-toastify";
 import "../index.css";
-// const router = [];
 
 function App() {
   return (
     <div className="App">
       <AppRoutes />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </div>
   );
 }

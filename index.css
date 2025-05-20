@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-dark-green: #1b4332;
+  --color-light-green: #40916c;
+  --color-btn-green-dark: #2d6a4f;
+  --color-light-green-gradient: #1fa35b;
+  --color-dark-green-gradient: #136638;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
