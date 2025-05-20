@@ -1,0 +1,43 @@
+section.hero {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 100vh;
+  background: #ffffff;
+  width: 100%;
+  flex-direction: column;
+  margin-top: 5%;
+}
+
+section.hero .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+section.hero .content h2 {
+  font-family: "TT Hoves", sans-serif;
+  font-weight: 900;
+  font-size: 57px;
+  line-height: 72px;
+}
+
+section.hero .content img {
+  width: 80%;
+}
+
+section.hero .content h3 {
+  font-family: "TT Hoves", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+  margin-top: -3%;
+}
+
+.icon img {
+  margin-left: 50%;
+  margin-top: 2%;
+}
