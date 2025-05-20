@@ -1,0 +1,89 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #ffffff;
+  color: #000000;
+  font-family: "TT Hoves", sans-serif;
+  padding: 20px 43px;
+}
+
+.footer .top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 165px;
+}
+
+.footer .top img {
+  width: 5%;
+}
+
+.footer .top ul li {
+  padding: 8px 0;
+}
+
+.footer .top .download {
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+}
+
+.footer .top .download h3 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.footer .top .download ul li {
+  display: flex;
+}
+
+.footer .top .download ul li a {
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 5%;
+}
+
+.footer .top .download ul li i {
+  font-size: 24px;
+  margin-top: 5%;
+}
+
+.footer .top .download ul li img {
+  width: 24px;
+  height: 24px;
+}
+
+.footer .top .download ul li a span {
+  display: block;
+}
+
+.horizontal {
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+  margin: 20px 0;
+}
+
+.footer .bottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30%;
+}
+
+.footer .bottom .copyright {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.footer .bottom .back {
+  display: flex;
+  gap: 15px;
+}
+
+.footer .bottom .back h3 {
+  font-size: 15px;
+  font-weight: 400;
+}
