@@ -9,48 +9,54 @@ import { ServicesScreen } from "../pages/ServicesScreen";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { ForgotPasswordScreen } from "../pages/ForgotPasswordScreen";
 import { ContactScreen } from "../pages/ContactScreen";
+import RootLayout from "../layouts/RootLayout";
 
 // Defining router
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomeScreen />,
-  },
-  {
-    path: "/dashboard",
-    element: (
-      <ProtectedRoute>
-        <DashboardScreen />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/login",
-    element: <LoginScreen />,
-  },
-  {
-    path: "/signup",
-    element: <SignUpScreen />,
-  },
-  {
-    path: "/about",
-    element: <AboutScreen />,
-  },
-  {
-    path: "/services",
-    element: <ServicesScreen />,
-  },
-  {
-    path: "/marketplace",
-    element: <MarketPlaceScreen />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPasswordScreen />,
-  },
-  {
-    path: "/contact",
-    element: <ContactScreen />,
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/",
+        element: <HomeScreen />,
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <ProtectedRoute>
+            <DashboardScreen />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/login",
+        element: <LoginScreen />,
+      },
+      {
+        path: "/signup",
+        element: <SignUpScreen />,
+      },
+      {
+        path: "/about",
+        element: <AboutScreen />,
+      },
+      {
+        path: "/services",
+        element: <ServicesScreen />,
+      },
+      {
+        path: "/marketplace",
+        element: <MarketPlaceScreen />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPasswordScreen />,
+      },
+      {
+        path: "/contact",
+        element: <ContactScreen />,
+      },
+    ],
   },
 ]);
 
