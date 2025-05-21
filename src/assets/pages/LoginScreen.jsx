@@ -7,7 +7,6 @@ import { useAuthForm } from "../hooks/useAuthForm";
 import { FormError } from "../components/ui/FormError";
 import axiaLogo from "../images/axia.png";
 import { FormInfo } from "../components/ui/FormInfo";
-import { successToast } from "../components/ui/toasts";
 
 export function LoginScreen() {
   const methods = useAuthForm({
