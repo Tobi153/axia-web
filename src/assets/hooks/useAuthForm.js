@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { errorToast } from "../components/ui/toasts";
+import { errorToast, successToast } from "../components/ui/toasts";
+import { loginSchema } from "../schemas/authSchema";
 
 export function useAuthForm({ schema, defaultValues, onSubmitCallback }) {
   const {
@@ -17,9 +18,18 @@ export function useAuthForm({ schema, defaultValues, onSubmitCallback }) {
     try {
       await onSubmitCallback(data);
       console.log(data);
+      if (schema === loginSchema) {
+        successToast({ message: `Welcome back ${data.email}!` });
+      } else {
+        successToast({ message: "Account created successfully!" });
+      }
       throw new Error();
     } catch (error) {
-      setError("root", { message: error.root?.message });
+      setError("root", {
+        message: error.message,
+      });
+
+      // errorToast({ message: error.message });
     }
   };
   // Display toasts

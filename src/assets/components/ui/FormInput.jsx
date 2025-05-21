@@ -22,7 +22,7 @@ export function FormInput({
       <div className="form-input relative">
         <button
           type="button"
-          className="absolute left-5 top-[50%] translate-[-50%]"
+          className="absolute left-6 top-[50%] translate-[-50%]"
         >
           <i className={`${iconClass1} text-[16px]`}></i>
         </button>
@@ -31,8 +31,9 @@ export function FormInput({
           type={showPassword ? "text" : type}
           name={name}
           id={name}
-          className="w-full border-1 border-gray-700 rounded-md pl-10 px-3 py-2 h-[44px] focus-within:outline-0 focus:border-none focus:ring-2 focus:ring-blue-500 transition-all duration-30"
+          className={`w-full border-1  border-gray-700 rounded-md pl-11 px-3 py-2 h-[44px] focus-within:outline-0 focus:border-none focus:ring-2 ${errors[name] ? "focus:ring-red-500" : "focus:ring-blue-500"}  transition-all duration-30`}
           placeholder={placeholder}
+          autoComplete="false"
         />
         <button
           type="button"
@@ -44,7 +45,7 @@ export function FormInput({
           ></i>
         </button>
       </div>
-      {errors[name] && <FormError error={errors[name]} />}
+      <div>{errors[name] && <FormError error={errors[name]} />}</div>
     </div>
   );
 }
