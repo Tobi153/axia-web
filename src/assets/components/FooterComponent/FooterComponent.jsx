@@ -24,7 +24,7 @@ const FooterComponent = () => {
                <div className="copyright">Copyright © 2025 AXIA Inc.  All right reserved.</div>
             <div className="back">
                   <h3>Back to top</h3>
-                <img src="/src/assets/images/arrow.svg" alt="" />
+                <a href="#nav"><img src="/src/assets/images/arrow.svg" alt="" /></a>
             </div>
         </div>
     </div>

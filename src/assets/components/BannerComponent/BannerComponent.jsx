@@ -13,10 +13,10 @@ const BannerComponent = () => {
           </h3>
         </div> 
         <div className="icon">
-          <img src="/src/assets/images/arrow-down.svg" alt="" className="icon-img" />
+      <a href="#steps"><img src="/src/assets/images/arrow-down.svg" alt="" className="icon-img" /></a> 
         </div>
       </section>
   )
 }
 
-export default BannerComponent
+export default BannerComponent          

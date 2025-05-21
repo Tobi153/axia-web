@@ -31,7 +31,7 @@ export function FormInput({
           type={showPassword ? "text" : type}
           name={name}
           id={name}
-          className="w-full border-1 border-gray-700 rounded-md pl-10 px-3 py-2 h-[44px] focus-within:outline-0 focus:border-none focus:ring-2 focus:ring-blue-500 transition-all duration-30"
+          className="w-full border-1 border-gray-700 rounded-xl pl-10 px-3 py-2 h-[44px] focus-within:outline-0 focus:border-none focus:ring-2 focus:ring-blue-500 transition-all duration-30"
           placeholder={placeholder}
         />
         <button

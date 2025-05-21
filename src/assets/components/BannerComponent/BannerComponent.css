@@ -37,7 +37,21 @@ section.hero .content h3 {
   margin-top: -3%;
 }
 
-.icon img {
+.icon a img {
   margin-left: 50%;
   margin-top: 2%;
+  animation: jump 2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

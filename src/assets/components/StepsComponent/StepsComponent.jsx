@@ -3,7 +3,7 @@ import "./StepsComponent.css";
 
 const StepsComponent = () => {
   return (
-     <section className="steps">
+     <section className="steps" id="steps">
         <div className="title">
             <h1>Steps on how to use AXIA</h1>
             <div className="title-underline"></div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function Header() {
   return (
-    <div className="main-nav">
+    <div className="main-nav" id="nav">
         <div className="left-nav">
              <img src="/src/assets/images/axia.png" alt="" />
           <ul className="main-menu">
