@@ -7,7 +7,8 @@ import { useAuthForm } from "../hooks/useAuthForm";
 import { FormError } from "../components/ui/FormError";
 import axiaLogo from "../images/axia.png";
 import { FormInfo } from "../components/ui/FormInfo";
-import { successToast } from "../components/ui/toasts";
+import { AltAccount } from "../components/ui/AltAccount";
+import { Agreement } from "../components/ui/Agreement";
 
 export function LoginScreen() {
   const methods = useAuthForm({
@@ -55,8 +56,10 @@ export function LoginScreen() {
               iconClass2="fa-solid fa-eye-slash"
               iconClass3="fa-solid fa-eye"
             />
+            <Agreement message="I agree to the terms and conditions" />
             <SubmitButton isSubmitting={isSubmitting} label="Sign up" />
             <FormError error={errors.root} />
+            <AltAccount message="Don’t have an account? " method="Sign up" />
           </form>
         </FormProvider>
       </div>
